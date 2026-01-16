@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, Field, field_validator, ValidationError
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from typing import Annotated
 
 NameString = Annotated[str, Field(min_length=1, max_length=100)]
@@ -15,7 +15,7 @@ class User(BaseModel):
     def name_must_be_alphabetic(cls, v: str) -> str:
         cleaned_name = v.strip()
         if not all(part.isalpha() for part in cleaned_name.split()):
-            raise ValidationError("Name must have alphabetical characters and spaces")
+            raise ValueError("Name must have alphabetical characters and spaces")
         return cleaned_name.title()
 
     @field_validator("username")
@@ -23,7 +23,7 @@ class User(BaseModel):
     def validate_username(cls, v: str) -> str:
         v = v.strip().lower()
         if "admin" in v:
-            raise ValidationError("For safety username cannot contain the word 'admin")
+            raise ValueError("For safety username cannot contain the word 'admin")
 
         return v
 
