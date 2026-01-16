@@ -1,5 +1,5 @@
 from fastapi import FastAPI, status
-from models import User
+from app.models.schemas import User
 
 app = FastAPI(title="NovaScale Auth API")
 

@@ -1,12 +1,15 @@
-from pydantic import BaseModel, EmailStr, Field, field_validator
-from typing import Annotated
+from sqlmodel import SQLModel, Field as SQLField, AutoString
+from pydantic import, Field as Pyfield, field_validator, EmailStr
+from typing import Annotated, Optional
 
 NameString = Annotated[str, Field(min_length=1, max_length=100)]
 
 
-class User(BaseModel):
+class User(SQLModel, table=True):
+    id: Optional[int] = SQLField(default=None, primary_key=True)
+
     name: NameString
-    email: EmailStr
+    email: str = Field(sa_type=AutoString)
     age: int = Field(ge=0, le=120)
     username: str = Field(min_length=5)
 
