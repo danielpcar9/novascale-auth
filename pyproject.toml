@@ -1,0 +1,16 @@
+[project]
+name = "novascale-auth"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "pydantic[email]>=2.12.5",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "ruff>=0.14.13",
+    "ty>=0.0.12",
+]
