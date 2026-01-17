@@ -1,17 +1,23 @@
 from sqlmodel import SQLModel, Field as SQLField, AutoString
-from pydantic import, Field as Pyfield, field_validator, EmailStr
+from pydantic import Field as PyField, field_validator
 from typing import Annotated, Optional
 
-NameString = Annotated[str, Field(min_length=1, max_length=100)]
+# Aquí usamos PyField porque Annotated es para tipos de Pydantic
+NameString = Annotated[str, PyField(min_length=1, max_length=100)]
 
 
 class User(SQLModel, table=True):
     id: Optional[int] = SQLField(default=None, primary_key=True)
 
     name: NameString
-    email: str = Field(sa_type=AutoString)
-    age: int = Field(ge=0, le=120)
-    username: str = Field(min_length=5)
+    # Usamos SQLField para que SQLModel sepa cómo guardarlo en DB
+    email: str = SQLField(sa_type=AutoString, index=True, unique=True)
+
+
+    age: int = PyField(ge=0, le=120)
+
+    # Aquí también, usa SQLField para definir el comportamiento en DB
+    username: str = SQLField(min_length=5, index=True, unique=True)
 
     @field_validator("name")
     @classmethod
@@ -26,9 +32,9 @@ class User(SQLModel, table=True):
     def validate_username(cls, v: str) -> str:
         v = v.strip().lower()
         if "admin" in v:
-            raise ValueError("For safety username cannot contain the word 'admin")
-
+            raise ValueError("For safety username cannot contain the word 'admin'")
         return v
+
 
 
 if __name__ == "__main__":

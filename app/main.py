@@ -1,12 +1,10 @@
-from fastapi import FastAPI, status
-from app.models.schemas import User
+from fastapi import FastAPI
+from app.api.v1.auth import router as auth_router  # Importa tu router
 
 app = FastAPI(title="NovaScale Auth API")
 
-@app.post("/register", status_code=status.HTTP_201_CREATED)
-async def register(user: User):
+app.include_router(auth_router, prefix="/api/v1")
 
-    return {
-        "message": "Usuario validado y registrado",
-        "data": user.model_dump()
-    }
+@app.get("/")
+def root():
+    return {"message": "Servicio de Auth activo"}
