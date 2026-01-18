@@ -8,7 +8,7 @@ from jose import jwt
 from passlib.context import CryptContext
 from sqlmodel import Session, select
 
-from app.models.schemas import User
+from app.models.schemas import User, UserCreate
 
 T = TypeVar("T")
 
@@ -33,7 +33,7 @@ class AuthService:
         """Generate password hash."""
         return pwd_context.hash(password)
 
-    def create_user(self, *, user_create: T, session: Session) -> User:
+    def create_user(self, *, user_create: UserCreate, session: Session) -> User:
         """Create a new user in the database."""
         db_user = User(
             name=user_create.name,

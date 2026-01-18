@@ -1,61 +1,61 @@
 # 🔐 NovaScale Auth
 
-Un microservicio de autenticación con detección de anomalías.  
-Diseñado para ser **escalable, seguro y desplegable**.
+An authentication microservice with anomaly detection.
+Designed to be **scalable, secure, and deployable**.
 
 ## 🚀 Features
 
-- Registro y login con JWT (JSON Web Tokens).
-- Validación de datos robusta con Pydantic y SQLModel.
-- Detección de anomalías integrada (arquitectura lista para ML).
-- Testing automatizado con Pytest.
-- Gestión de dependencias moderna con `uv`.
+- Registration and login with JWT (JSON Web Tokens).
+- Robust data validation with Pydantic and SQLModel.
+- Integrated anomaly detection (ML-ready architecture).
+- Automated testing with Pytest.
+- Modern dependency management with `uv`.
 
 ## 🛠️ Stack
 
 - **Backend**: FastAPI
-- **Base de datos**: PostgreSQL (SQLModel)
-- **Seguridad**: Passlib (bcrypt), PyJWT
+- **Database**: PostgreSQL (SQLModel)
+- **Security**: Passlib (bcrypt), PyJWT
 - **Testing**: Pytest
 - **Tooling**: `uv`, Ruff
-- **Lenguaje**: Python 3.14+
+- **Language**: Python 3.14+
 
-## 📦 Requisitos
+## 📦 Requirements
 
 - Python 3.14+
 - `uv` (https://github.com/astral-sh/uv)
-- PostgreSQL (local o remoto)
+- PostgreSQL (local or remote)
 
-## ▶️ Iniciar localmente
+## ▶️ Getting Started Locally
 
 ```bash
-# 1. Clonar el repositorio
+# 1. Clone the repository
 git clone https://github.com/danielpcar9/novascale-auth.git
 cd novascale-auth
 
-# 2. Crear entorno virtual e instalar dependencias
+# 2. Create virtual environment and install dependencies
 uv sync
 
-# 3. Configurar variables de entorno (Opcional por ahora)
-# El servicio usa una DATABASE_URL por defecto en app/database.py
+# 3. Configure environment variables (Optional for now)
+# The service uses a default DATABASE_URL in app/database.py
 
-# 4. Correr la aplicación
+# 4. Run the application
 uv run uvicorn app.main:app --reload
 ```
 
 ## 🧪 Testing
 
-Para ejecutar los tests automatizados:
+To run automated tests:
 
 ```bash
 export PYTHONPATH=$PYTHONPATH:.
 pytest
 ```
 
-## 🏗️ Estructura del Proyecto
+## 🏗️ Project Structure
 
-- `app/api/`: Endpoints de la API (v1).
-- `app/models/`: Definición de modelos de datos y schemas.
-- `app/services/`: Lógica de negocio y autenticación.
-- `app/ml/`: Componentes de Machine Learning (detección de anomalías).
-- `tests/`: Pruebas unitarias y de integración.
+- `app/api/`: API endpoints (v1).
+- `app/models/`: Data models and schemas definition.
+- `app/services/`: Business logic and authentication.
+- `app/ml/`: Machine Learning components (anomaly detection).
+- `tests/`: Unit and integration tests.
