@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel, Field as SQLField, AutoString
 from pydantic import Field as PyField, field_validator
-from typing import Annotated, Optional
+from typing import Annotated
 
 # Here we use PyField because Annotated is for Pydantic types
 NameString = Annotated[str, PyField(min_length=1, max_length=100)]
@@ -30,7 +30,7 @@ class UserBase(SQLModel):
 
 
 class User(UserBase, table=True):
-    id: Optional[int] = SQLField(default=None, primary_key=True)
+    id: int | None = SQLField(default=None, primary_key=True)
     hashed_password: str = SQLField()
 
 
