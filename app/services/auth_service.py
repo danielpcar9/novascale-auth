@@ -1,6 +1,7 @@
 # app/services/auth_service.py
 """Authentication service with JWT and password hashing."""
 
+import logfire
 from datetime import datetime, timedelta, timezone
 from typing import Any, TypeVar
 
@@ -31,7 +32,8 @@ class AuthService:
 
     def get_password_hash(self, password: str) -> str:
         """Generate password hash."""
-        return pwd_context.hash(password)
+        with logfire.span("hashing password"):
+            return pwd_context.hash(password)
 
     def create_user(self, *, user_create: UserCreate, session: Session) -> User:
         """Create a new user in the database."""

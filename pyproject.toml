@@ -17,6 +17,7 @@ dependencies = [
     "sqlmodel>=0.0.31",
     "uvicorn>=0.40.0",
     "httpx>=0.28.1",
+    "logfire[fastapi,sqlalchemy]>=4.19.0",
 ]
 
 [dependency-groups]
@@ -25,3 +26,6 @@ dev = [
     "ruff>=0.14.13",
     "ty>=0.0.12",
 ]
+
+[tool.logfire]
+ignore_no_config = true
