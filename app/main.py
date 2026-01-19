@@ -20,7 +20,7 @@ logging.basicConfig(
 logger = logging.getLogger("rich")
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(_: FastAPI):
     # Startup
     console.print("[bold green]NovaScale Auth API is starting up...[/bold green] 🚀")
     logger.info("Application startup complete.")
