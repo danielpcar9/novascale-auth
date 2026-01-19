@@ -9,7 +9,8 @@ from jose import jwt
 from passlib.context import CryptContext
 from sqlmodel import Session, select
 
-from app.models.schemas import User, UserCreate
+from app.models.orm import User
+from app.models.schemas import UserCreate
 
 T = TypeVar("T")
 

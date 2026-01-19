@@ -1,14 +1,18 @@
-from pydantic import BaseModel, Field as PyField, field_validator, EmailStr, ConfigDict
+from sqlmodel import SQLModel, Field as SQLField, AutoString
+from pydantic import field_validator
 from typing import Annotated
+from pydantic import Field as PyField
 
-# Common types
+# Common types/validators can be shared or duplicated if they apply to both
 NameString = Annotated[str, PyField(min_length=1, max_length=100)]
 
-class UserBase(BaseModel):
+class User(SQLModel, table=True):
+    id: int | None = SQLField(default=None, primary_key=True)
     name: NameString
-    email: EmailStr
+    email: str = SQLField(sa_type=AutoString, index=True, unique=True)
     age: int = PyField(ge=0, le=120)
-    username: str = PyField(min_length=5)
+    username: str = SQLField(min_length=5, index=True, unique=True)
+    hashed_password: str = SQLField()
 
     @field_validator("name")
     @classmethod
@@ -25,23 +29,3 @@ class UserBase(BaseModel):
         if "admin" in v:
             raise ValueError("For safety username cannot contain the word 'admin'")
         return v
-
-class UserCreate(UserBase):
-    password: str = PyField(min_length=8)
-
-class UserRead(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
-    id: int
-    name: str
-    email: str
-    age: int
-    username: str
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-
-class LoginRequest(BaseModel):
-    username: str
-    password: str

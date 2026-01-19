@@ -11,6 +11,7 @@ from app.database import get_session  # ← Create this if it doesn't exist
 from app.deeps import get_auth_service
 from app.services.auth_service import AuthService
 from app.models.schemas import UserCreate, UserRead, Token
+from app.models.orm import User
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -24,7 +25,6 @@ def register(
     """Register a new user."""
     # Check if user already exists
     from sqlmodel import select
-    from app.models.schemas import User
 
     existing_user = session.exec(
         select(User).where(

@@ -1,10 +1,9 @@
-import pytest
 from fastapi.testclient import TestClient
 from sqlmodel import Session, SQLModel, create_engine
 from sqlmodel.pool import StaticPool
 
-from app.main import app
 from app.database import get_session
+from app.main import app
 
 # Setup in-memory database for testing
 SQLALCHEMY_DATABASE_URL = "sqlite://"
@@ -22,7 +21,7 @@ app.dependency_overrides[get_session] = override_get_session
 
 client = TestClient(app)
 
-def setup_module(module):
+def setup_module():
     SQLModel.metadata.create_all(engine)
 
 def test_register_user():
