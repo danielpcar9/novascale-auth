@@ -5,10 +5,7 @@ from sqlmodel import Session
 from datetime import timedelta
 
 # Import your DB session
-from app.database import get_session  # ← Create this if it doesn't exist
-
-# Import the service (using your deeps.py)
-from app.deeps import get_auth_service
+from app.deeps import get_session, get_auth_service
 from app.services.auth_service import AuthService
 from app.models.schemas import UserCreate, UserRead, Token
 from app.models.orm import User
